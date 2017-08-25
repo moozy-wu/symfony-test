@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="logout container" style="padding: 0; margin-top: 20px; margin-bottom: 5px;">
+        <a href="{{ path('logout') }}">Logout</a>
+    </div>
+    <div class="container" style="margin-top: 0">
+    <div class="card" style="display: none;"></div>
+    <div class="card" style="padding: 20px; margin-bottom: 20px;">
+        <div class="card-content">
+            <div class="card-header">
+                <div class="card-author">
+                    {{ user.username }}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="card-body">
+                <a href="{{ path('homepage') }}">back</a>
+            </div>
+        </div>
+    </div>
+    {% for post in user.posts %}
+        <div class="card" style="padding: 20px; margin-bottom: 20px;">
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-author">
+                        {{ post.author.username }}
+                    </div>
+                    <div class="card-date">
+                        {{ post.createdAt | date('d.m.Y H:i:s') }}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="card-body">
+                    {{ post.text }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if user.posts is empty %}
+        <div class="card" style="padding: 20px; margin-bottom: 20px;">
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-author">
+                    </div>
+                    <div class="card-date">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="card-body">
+                    Sorry, no posts. User "{{ user.username }}" did not write something yet.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
